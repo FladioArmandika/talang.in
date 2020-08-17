@@ -18,7 +18,7 @@ module.exports = {
         prefix: '/api',
     },
 
-db: {
+    db: {
         url: 'mongodb+srv://'+process.env.DB_USERNAME+':'+process.env.DB_PASSWORD+'@talangin.bdq9j.mongodb.net/<talangin>?retryWrites=true&w=majority',
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
