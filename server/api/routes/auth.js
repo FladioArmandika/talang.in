@@ -1,6 +1,7 @@
 const Router    = require('express').Router;
 const passport  = require('passport');
-
+const GoogleAuth    = require('../../loaders/auth');
+const AuthService   = require('../../services/auth')
 const route = Router();
 
 module.exports = (app) => {
@@ -20,20 +21,37 @@ module.exports = (app) => {
         }
     })
 
-    route.get('/google', passport.authenticate('google', {
-        scope: ['profile','email']
-    }))
+    route.post('/login', async(req, res) => {
 
-    route.get('/google/callback', 
-        passport.authenticate('google', {
-            // successRedirect: '/api/user',
-            failureRedirect: '/api/auth'
-        }), 
-        (req, res) => {
-            req.session.token = req.user.token;
-            res.redirect('/api/auth');
-        }
-    )
+        const code = req.body.code;
+
+        AuthService.login(code, (result) => {
+            res.send(result)
+        })
+
+        // try {
+            
+        //     GoogleAuth.getProfileInfo(code, (payload, token) => {
+        //         const profile = payload;
+        //         const user = {
+        //             googleId: profile.sub,
+        //             name: profile.name,
+        //             firstName: profile.given_name,
+        //             lastName: profile.family_name,
+        //             email: profile.email,
+        //             profilePic: profile.picture,
+        //         };
+
+        //         res.send({
+        //             user: user,
+        //             token: token
+        //         });
+        //     });
+        // } catch (e) {
+        //     console.log(e);
+        //     res.status(401).send();
+        // }
+    })
     
     route.get('/logout', (req, res) => {
         req.logout();

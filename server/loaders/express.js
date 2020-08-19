@@ -6,7 +6,6 @@ const cors      = require('cors');
 const routes    = require('../api');
 const config    = require('../config');
 const passport  = require('passport');
-const auth      = require('./auth');
 
 const clientSecret = config.auth.google.clientSecret;
 
@@ -20,17 +19,16 @@ module.exports = (app) => {
         res.status(200).end();
     });
 
-    
+    app.use(cors());
     app.use(cookieParser());
     app.use(cookieSession({
         name: 'session',
         keys: [clientSecret],
         maxAge: 24 * 60 * 60 * 1000
     }))
-    auth(passport);
+    // auth(passport);
     app.use(passport.initialize());
     app.enable('trust proxy');
-    app.use(cors());
     app.use(bodyParser.json());
     app.use(config.api.prefix, routes())
     

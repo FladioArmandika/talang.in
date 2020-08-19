@@ -1,11 +1,21 @@
 import React from 'react'
+import { AUTH } from '../types';
 
 
-export default function authReducer(state, action) {
+const initialState = {
+    isAuthenticated: false,
+    user: null,
+    token: null,
+}
+
+const auth = (state=initialState, action) => {
     switch (action.type) {
-        case 'LOGIN': {
+        case AUTH.AUTH_LOGIN: {
+            console.log(state);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
             localStorage.setItem("token", JSON.stringify(action.payload.token));
+
+            console.log(action.payload.user);
             return {
                 ...state,
                 isAuthenticated: true,
@@ -13,7 +23,7 @@ export default function authReducer(state, action) {
                 token: action.payload.token,
             }
         }
-        case 'LOG_OUT': {
+        case AUTH.AUTH_LOGOUT: {
             localStorage.clear();
             return {
                 ...state,
@@ -25,3 +35,5 @@ export default function authReducer(state, action) {
         default: return state;
     }
 }
+
+export default auth;

@@ -1,70 +1,65 @@
-import React, { useReducer, useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { useReducer, useEffect, Component } from 'react'
+import { BrowserRouter, Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Home, Profile } from './routes';
-import authReducer from './reducers/auth';
+import authReducer from './state/reducers/auth';
 import Login from './routes/login';
-
-export const AuthContext = React.createContext();
-
-function combineReducers(reducers) {  
-    return (state = {}, action) => {
-      const newState = {};
-      for (let key in reducers) {
-        newState[key] = reducers[key](state[key], action);
-      }
-      return newState;
-    }
-}
-
-const initialState = {
-    isAuthenticated: false,
-    user: null,
-    token: null,
-};
+import { useSelector, useDispatch } from 'react-redux';
+import { authLogin } from './state/actions/auth';
 
 
 export default function App() {
-    const [state, dispatch] = useReducer(combineReducers({
-        auth: authReducer,
-    }), initialState)
+
+    const auth = useSelector(state => state.auth);
+    const history = useHistory()
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user') || null);
         const token = JSON.parse(localStorage.getItem('token') || null);
 
+        console.log(auth.isAuthenticated);
+
         if (user && token) {
-            dispatch({
-                type: 'LOGIN',
-                payload: {
-                    user,
-                    token,
-                }
-            })
+            dispatch(authLogin({user,token}))
         }
     }, [])
 
+
     return (
-        <AuthContext.Provider 
-            value={{
-                state,
-                dispatch
-            }}>
-            {
-                !state.isAuthenticated ?
-                <Login />
-                :
-                <BrowserRouter>
-                    <Switch>
-                        <Route path='/profile'>
-                            <Profile />
-                        </Route>
-                        <Route path='/'>
-                            <Home />
-                        </Route>
-                    </Switch>
-                </BrowserRouter>
-            }
-        </AuthContext.Provider>
-        
+        <Switch>
+            {/* <PublicRoute path='/login' auth={auth}
+                component={Login}/>
+            <PrivateRoute path='/profile' auth={auth}
+                component={Profile}/>
+            <PrivateRoute path='/' auth={auth}
+                component={Home}/>  */}
+            { auth.isAuthenticated && <Route path='/profile' component={Profile}/>}
+            { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
+            { auth.isAuthenticated && <Route path='/' component={Home}/>}
+        </Switch>
+    )
+}
+
+
+const PrivateRoute = ({path, component : Component, auth}) => {
+    return (
+        <Route path={path} 
+            render={ (props) => auth.isAuthenticated
+                ? <Component {...props} />
+                : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+            }/>
+    )
+}
+
+
+
+const PublicRoute = ({path, component : Component, auth}) => {
+    return (
+        <Route path={path} 
+            render={ (props) => auth.isAuthenticated
+                ? <Component {...props} />
+                : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+            }/>
     )
 }
