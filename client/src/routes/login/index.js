@@ -1,22 +1,21 @@
 import React, { useReducer, useEffect } from 'react'
 import { Button, Input } from '../../components'
 import GoogleLogin from 'react-google-login'
-import { login } from '../../api/auth'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { addCount } from '../../state/actions/count'
 import { authLogin } from '../../state/actions/auth'
 import { Redirect, useHistory } from 'react-router-dom'
+import { AuthService } from '../../service'
 
 export default function Login() {
     
-
     const dispatch = useDispatch()
     const history = useHistory()
 
     const responseGoogle = async (authResult) => {
         try {
             if(authResult['code']) {
-                login(authResult['code'], (result) => {
+                AuthService.login(authResult['code'], (result) => {
                     var user = result.user;
                     var token = result.token;
                     dispatch(authLogin({user,token}))   
@@ -28,6 +27,8 @@ export default function Login() {
             }
         } catch(e){ console.log(e);}
     }
+
+
 
     return (
         <div>

@@ -9,6 +9,9 @@ const initialState = {
 }
 
 const auth = (state=initialState, action) => {
+
+    console.log(action);
+
     switch (action.type) {
         case AUTH.AUTH_LOGIN: {
             console.log(state);

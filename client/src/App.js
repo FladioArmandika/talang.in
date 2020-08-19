@@ -5,6 +5,7 @@ import authReducer from './state/reducers/auth';
 import Login from './routes/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { authLogin } from './state/actions/auth';
+import { AuthService } from './service';
 
 
 export default function App() {
@@ -28,28 +29,41 @@ export default function App() {
 
     return (
         <Switch>
-            {/* <PublicRoute path='/login' auth={auth}
-                component={Login}/>
-            <PrivateRoute path='/profile' auth={auth}
-                component={Profile}/>
-            <PrivateRoute path='/' auth={auth}
-                component={Home}/>  */}
-            { auth.isAuthenticated && <Route path='/profile' component={Profile}/>}
             { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
-            { auth.isAuthenticated && <Route path='/' component={Home}/>}
+            <PrivateRoute path='/profile'component={Profile}/>
+            <PrivateRoute path='/' component={Home}/>  
+            {/* { auth.isAuthenticated && <Route path='/profile' component={Profile}/>}
+            { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
+            { auth.isAuthenticated && <Route path='/' component={Home}/>} */}
         </Switch>
     )
 }
 
 
-const PrivateRoute = ({path, component : Component, auth}) => {
+const PrivateRoute = ({path, component : Component}) => {
+
+    const isAuth = AuthService.isAuthenticated()
+
+    alert(isAuth)
+
     return (
         <Route path={path} 
-            render={ (props) => auth.isAuthenticated
+            render={ (props) => isAuth
                 ? <Component {...props} />
                 : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
             }/>
     )
+
+
+    // AuthService.isAuthenticated(auth => {
+    //     return (
+    //         <Route path={path} 
+    //             render={ (props) => auth
+    //                 ? <Component {...props} />
+    //                 : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+    //             }/>
+    //     )
+    // })
 }
 
 
