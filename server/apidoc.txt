@@ -1,0 +1,22 @@
+
+
+/user
+[ GET ] return user information
+
+    /friend
+    [ GET ] return user friendlist by id
+    [ POST ] add friend request
+
+/debt
+[ GET ] return all debt
+[ POST ] add new debt
+
+    /{idDebt}
+    [ GET ] return debt info by id
+    
+    /request
+    [ GET ] return waiting debt request
+    [ POST ] add debt request 
+
+
+		

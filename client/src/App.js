@@ -32,46 +32,16 @@ export default function App() {
             { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
             <PrivateRoute path='/profile'component={Profile}/>
             <PrivateRoute path='/' component={Home}/>  
-            {/* { auth.isAuthenticated && <Route path='/profile' component={Profile}/>}
-            { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
-            { auth.isAuthenticated && <Route path='/' component={Home}/>} */}
         </Switch>
     )
 }
 
 
 const PrivateRoute = ({path, component : Component}) => {
-
     const isAuth = AuthService.isAuthenticated()
-
-    alert(isAuth)
-
     return (
         <Route path={path} 
             render={ (props) => isAuth
-                ? <Component {...props} />
-                : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-            }/>
-    )
-
-
-    // AuthService.isAuthenticated(auth => {
-    //     return (
-    //         <Route path={path} 
-    //             render={ (props) => auth
-    //                 ? <Component {...props} />
-    //                 : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-    //             }/>
-    //     )
-    // })
-}
-
-
-
-const PublicRoute = ({path, component : Component, auth}) => {
-    return (
-        <Route path={path} 
-            render={ (props) => auth.isAuthenticated
                 ? <Component {...props} />
                 : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
             }/>
