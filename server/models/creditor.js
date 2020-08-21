@@ -12,8 +12,13 @@ const CreditorSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['paid','in debt'],
-        default: 'in debt'
+        enum: ['paid','ongoing'],
+        default: 'ongoing'
+    },
+    request: {
+        type: String,
+        enum: [ 'waiting','accept', 'reject'],
+        default: 'waiting'
     },
     total: {
         type: Number

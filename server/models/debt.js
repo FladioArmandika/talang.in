@@ -10,6 +10,8 @@ const DebtSchema = new Schema({
     },
     status: {
         type: String,
+        enum: ['done','waiting','roll'],
+        default: 'waiting'
     },
     description: {
         type: String,

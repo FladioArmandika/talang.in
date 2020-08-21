@@ -27,14 +27,35 @@ module.exports = (app) => {
         }
     })
 
-    route.get('/friend', async(req,res) => {
-        var userId = req.body.id
+    route.get('/friend/request', async(req,res) => {
+        var userId = req.body.userid
 
         if(!userId) {
-
+            UserService.getUserFriendRequests(userid, (result) => {
+                if(result.err) {
+                    res.send({error: result.err}).status(401)
+                } else {
+                    res.send(result.data).status(200)
+                }
+            })
         } else {
             res.status(401).send({
                 userId: 'there is no userId'
+            })
+        }
+    })
+
+    route.post('/friend/request', async(req,res) => {
+        var status = req.body.status
+        var requestId = req.body.requestId
+        
+        if(!status) {
+            UserService.updateFriendRequest(requestId, status, (results) => {
+                if(result.err) {
+                    res.send({error: result.err}).status(401)
+                } else {
+                    res.send(result.data).status(200)
+                }
             })
         }
     })

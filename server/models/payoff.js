@@ -13,6 +13,11 @@ const PayOffSchema = new Schema({
     amount: {
         type: Number
     },
+    status: {
+        type: String,
+        enum: ['waiting','accept','reject'],
+        default: 'waiting'
+    },
     img: {
         type: String
     },

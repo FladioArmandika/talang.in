@@ -27,6 +27,12 @@ const UserSchema = new Schema({
             ref: 'FriendRequest',
         }
     ],
+    debts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Debt'
+        }
+    ],
     credits: [
         {
             type: Schema.Types.ObjectId,
