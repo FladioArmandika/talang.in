@@ -6,6 +6,7 @@ import Login from './routes/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { authLogin } from './state/actions/auth';
 import { AuthService } from './service';
+import { updateUserInfo } from './state/actions/user';
 
 
 export default function App() {
@@ -15,11 +16,24 @@ export default function App() {
 
     const dispatch = useDispatch()
 
+    const PrivateRoute = ({path, component : Component}) => {
+        const isAuth = AuthService.isAuthenticated()
+        isAuth.status ? dispatch(updateUserInfo(isAuth)): console.log('not logged');
+    
+        return (
+            <Route path={path} 
+                render={ (props) => isAuth.status
+                    ? <Component {...props} />
+                    : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
+                }/>
+        )
+    }
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user') || null);
         const token = JSON.parse(localStorage.getItem('token') || null);
 
-        console.log(auth.isAuthenticated);
+        // console.log(auth.isAuthenticated);
 
         if (user && token) {
             dispatch(authLogin({user,token}))
@@ -37,13 +51,3 @@ export default function App() {
 }
 
 
-const PrivateRoute = ({path, component : Component}) => {
-    const isAuth = AuthService.isAuthenticated()
-    return (
-        <Route path={path} 
-            render={ (props) => isAuth
-                ? <Component {...props} />
-                : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
-            }/>
-    )
-}

@@ -1,5 +1,8 @@
 import axios from 'axios'
-const host = 'http://localhost:3000'
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from '../state/actions/user';
+// const host = 'http://localhost:3000'
+const host = process.env.REACT_APP_HOST_SERVER 
 
 
 const AuthService = {
@@ -28,12 +31,22 @@ const AuthService = {
         const user = JSON.parse(localStorage.getItem('user') || null);
         const token = JSON.parse(localStorage.getItem('token') || null);
 
+        console.log('isAuthenticated');
+        console.log(user);
+
         if (user && token) {
-            // callback(true)
-            return true
+            return {
+                status: true,
+                data: {
+                    user,
+                    token
+                }
+            }
         } else {
             // callback(false)
-            return false
+            return {
+                status: false
+            }
         }
     }
 };

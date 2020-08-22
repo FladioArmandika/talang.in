@@ -21,13 +21,13 @@ const AuthService = {
                 {new: true, upsert: true},
                 (err, result) => {
                     if (err)
-                        console.log(err);
+                        callback({err})
                     console.log('TOKEN USER UPDATED');
                     console.log(result);
 
                     callback({
-                        user: user,
-                        token: token,
+                        user: result,
+                        token: token, 
                     })
                 })
         });

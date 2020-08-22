@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.use('/user', route);
 
     route.get('/', async(req,res) => {
-        var userId = req.body.id
+        var userId = req.body.userid
 
         // CHECK IF USERID EXISTS
         if(!userId) {
@@ -60,6 +60,41 @@ module.exports = (app) => {
         }
     })
 
+    route.get('/debt', async(req,res) => {
+        var userId = req.body.userid
+    })
 
+    route.get('/debt/request', async(req,res) => {
+        var userId = req.body.userid
+
+        if(userId) {
+            UserService.getDebtRequests(userId, (results) => {
+                if(result.err) {
+                    res.send({error: result.err}).status(401)
+                } else {
+                    res.send(result.data).status(200)
+                }
+            })
+        }
+    })
+
+    route.post('/debt/request', async(req,res) => {
+        var creditorId = req.body.creditorId
+        var status = req.body.status
+
+        if(creditorId && status) {
+            UserService.updateCreditorRequest(creditorId, status, (results) => {
+                if(result.err) {
+                    res.send({error: result.err}).status(401)
+                } else {
+                    res.send(result.data).status(200)
+                }
+            })
+        }
+    })
+
+    route.get('/pay', async(req,res) => {
+        
+    })
 }
 

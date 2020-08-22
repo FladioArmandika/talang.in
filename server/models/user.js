@@ -39,12 +39,12 @@ const UserSchema = new Schema({
             ref: 'Creditor',
         }
     ],
-    debtrequests: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'DebtRequest',
-        }
-    ],
+    // debtrequests: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: 'DebtRequest',
+    //     }
+    // ],
     history: [
         {
             type: Schema.Types.ObjectId,

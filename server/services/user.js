@@ -1,5 +1,6 @@
 const User  = require('../models/user')
 const FriendRequest = require('../models/friendrequest')
+const Creditor = require('../models/creditor')
 
 const UserService = {
     getAllUser: (callback) => {
@@ -43,9 +44,41 @@ const UserService = {
             .then((err,result) => {
                 callback({
                     err,
-                    data: {'update friend request successful'}
+                    data: 'update friend request successful'
                 })
             })
+    },
+    getDebtRequests: (userId, callback) => {
+        Creditor.find({user: userId, request: 'waiting'})
+            .populate('debt')
+            .exec((err, user) => {
+                callback({
+                    err,
+                    data: user
+                })
+            })
+    },
+    updateCreditorRequest: (creditorId, status, callback) => {
+
+        if(status == 'accept') {
+            Creditor.findOneAndUpdate({_id: creditorId}, {request: 'accept'})
+                .then((err,result) => {
+                    callback({
+                        err,
+                        data: 'update credit request successful'
+                    })
+                })
+        } else if (status == 'reject') {
+            Creditor.findOneAndDelete({_id: creditorId})
+                .then((err,result) => {
+                    callback({
+                        err,
+                        data: 'update credit request successful'
+                    })
+                })
+        }
+
+       
     }
 } 
 

@@ -13,3 +13,7 @@ export const AUTH = {
     AUTH_LOGOUT: 'AUTH_LOGOUT',
     AUTH_REGISTER: 'AUTH_REGISTER',
 }
+
+export const USER = {
+    USER_INFO_UPDATE: 'USER_INFO_UPDATE'
+}
