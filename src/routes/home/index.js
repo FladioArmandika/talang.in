@@ -27,7 +27,12 @@ export default function Home() {
                 <div>
                     Hello {user.name}
                     <br/>
-                    <Button>CREATE DEBT</Button>
+                    <NavLink to='/debt/create'>
+                        <Button>CREATE DEBT</Button>
+                    </NavLink>
+                    <NavLink to='/friends'>
+                        <Button>FRIEND LIST</Button>
+                    </NavLink>
                     <br/>
                     <NavLink to='/profile'>My Profile</NavLink>
                 </div>

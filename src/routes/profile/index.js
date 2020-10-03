@@ -1,11 +1,11 @@
 
 import React, { useEffect } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
-import { Button } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { authLogout } from '../../state/actions/auth'
 import UserService from '../../service/user'
 import { updateUserInfo } from "../../state/actions/user";
+import { Button } from '../../components'
 
 export default function Profile() {
 
@@ -36,7 +36,7 @@ export default function Profile() {
                 <div>
                     <NavLink to='/'>Back</NavLink>
                     this is profile
-                    <Button 
+                    <Button
                         onClick={() => logout()}>
                         Logout
                     </Button>

@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, Component } from 'react'
 import { BrowserRouter, Switch, Route, Redirect, useHistory } from "react-router-dom";
-import { Home, Profile } from './routes';
+import { Home, Profile, DebtNew, FriendList } from './routes';
 import authReducer from './state/reducers/auth';
 import Login from './routes/login';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,9 +32,6 @@ export default function App() {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user') || null);
         const token = JSON.parse(localStorage.getItem('token') || null);
-
-        // console.log(auth.isAuthenticated);
-
         if (user && token) {
             dispatch(authLogin({user,token}))
         }
@@ -45,6 +42,8 @@ export default function App() {
         <Switch>
             { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
             <PrivateRoute path='/profile'component={Profile}/>
+            <PrivateRoute path='/friends'component={FriendList}/>
+            <PrivateRoute path='/debt/create'component={DebtNew}/>
             <PrivateRoute path='/' component={Home}/>  
         </Switch>
     )

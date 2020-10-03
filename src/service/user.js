@@ -13,6 +13,20 @@ const UserService = {
                 callback(res.data[0]) 
             })
             .catch(err => { console.error(err); })
+    },
+    addFriend: async(userId, email, callback) => {
+        var headers =  {
+            'Content-Type': 'application/json',
+        }
+        var body = { 
+            userid: userId,
+            email: email,
+        }
+        axios.post(host + '/user/friend', body, {headers: headers})
+            .then(res => { 
+                callback(res.data) 
+            })
+            .catch(err => { console.error(err); })
     }
 }
 
