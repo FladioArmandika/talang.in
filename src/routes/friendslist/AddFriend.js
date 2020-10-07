@@ -16,7 +16,9 @@ export default function AddFriend({backToFriendList}) {
             <br />
             <br />
             <br />
-            <Input onChange={() => }/>
+            <Input 
+                value={inputEmail}
+                onChange={(e) => setinputEmail(e)}/>
             <Button>CARI</Button>
 
         </div>

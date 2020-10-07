@@ -1,11 +1,12 @@
 import React, { useReducer, useEffect } from 'react'
-import { Button, Input } from '../../components'
+import { Input } from '../../components'
 import GoogleLogin from 'react-google-login'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { addCount } from '../../state/actions/count'
 import { authLogin } from '../../state/actions/auth'
 import { Redirect, useHistory } from 'react-router-dom'
 import { AuthService } from '../../service'
+import { Button } from '@chakra-ui/core'
 
 export default function Login() {
     

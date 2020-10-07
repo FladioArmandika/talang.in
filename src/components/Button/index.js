@@ -1,10 +1,15 @@
 import React from 'react'
 
-import './style.css'
+// import './style.css'
 
 export default function Button({children, onClick}) {
     return (
-        <button className='btn'
+        <button 
+            style={
+                {
+                    padding: 10,
+                }
+            }
             onClick={onClick}>
             {children}
         </button>
