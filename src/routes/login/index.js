@@ -6,7 +6,7 @@ import { addCount } from '../../state/actions/count'
 import { authLogin } from '../../state/actions/auth'
 import { Redirect, useHistory } from 'react-router-dom'
 import { AuthService } from '../../service'
-import { Button } from '@chakra-ui/core'
+import { Box, Button, Flex, Heading } from '@chakra-ui/core'
 
 export default function Login() {
     
@@ -29,25 +29,31 @@ export default function Login() {
         } catch(e){ console.log(e);}
     }
 
-
-
     return (
-        <div>
-            this login page
-            <GoogleLogin
-                clientId='683152750552-p140oaqd2qhqeb6f9ohd8o264md4c7nb.apps.googleusercontent.com'
-                buttonText="Login with Google"
-                responseType="code"
+        <Box>
+            <Box h={'90vh', '100%'} justifyContent="center">
+                <Flex mx={{md: 120, sm: 10}} justifyContent="center">
+                    <Box rounded border='0px' borderColor='gray.100' w="30%" p={10}
+                        // boxShadow="0px 0px 16px 3px rgba(0,0,0,0.09)">
+                        boxShadow="none">
+                        <Flex direction="column">
+                            <Heading textAlign="center" marginBottom={30}>Login</Heading>
+                            <GoogleLogin
+                                clientId='683152750552-p140oaqd2qhqeb6f9ohd8o264md4c7nb.apps.googleusercontent.com'
+                                buttonText="Login with Google"
+                                responseType="code"
 
-                redirectUri="postmessage"
-                // redirectUri="http://localhost:3000/api/auth/google/callback"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-                />
-
-            <br/><br/><br/><br/><br/>
-        </div>
+                                redirectUri="postmessage"
+                                // redirectUri="http://localhost:3000/api/auth/google/callback"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                cookiePolicy={'single_host_origin'}
+                                />
+                        </Flex>
+                    </Box>
+                </Flex>
+            </Box>
+        </Box>
     )
 }
 

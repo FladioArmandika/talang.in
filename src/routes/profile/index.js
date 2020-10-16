@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { authLogout } from '../../state/actions/auth'
 import UserService from '../../service/user'
 import { updateUserInfo } from "../../state/actions/user";
-import { Button } from '../../components'
+import { Box, Button, Flex, Text } from '@chakra-ui/core'
 
 export default function Profile() {
 
@@ -26,24 +26,52 @@ export default function Profile() {
             <Redirect to='/login'/>
         )
     }
+
+    const back = () => {
+        return (
+            <Redirect to='/'/>
+        )
+    }
     
     return (
-        <div>
+        <Box>
             {
                 !user ? 
                 <span>Loading</span>
                 :
-                <div>
-                    <NavLink to='/'>Back</NavLink>
-                    this is profile
-                    <Button
-                        onClick={() => logout()}>
-                        Logout
-                    </Button>
-                </div>
+                <Flex justifyContent="center">
+                    <Box w={500}>
+                        <Box w="100%">
+                             <Flex direction="row" justifyContent="space-between">
+                                <NavLink to='/'>
+                                    <Button cursor="pointer">
+                                        Back
+                                    </Button>
+                                </NavLink>
+                               
+                                <Text fontWeight="bold">Profile</Text>
+                                <Text></Text>
+                            </Flex>
+                        </Box>
+                        <Flex direction="column">
+                            <Box marginTop={10}>
+                                <Text>Nama</Text>
+                                <Text fontWeight="bold">{user.name}</Text>
+                            </Box>
+                            <Box marginTop={10}>
+                                <Text>Nama</Text>
+                                <Text fontWeight="bold">{user.email}</Text>
+                            </Box>
+                            <Button onClick={() => logout()} cursor="pointer"
+                                marginTop={10}>
+                                Logout
+                            </Button>
+                        </Flex>
+                    </Box>
+                </Flex>
                 
             }
             
-        </div>
+        </Box>
     )
 }
