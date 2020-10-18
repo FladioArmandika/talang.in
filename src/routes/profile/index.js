@@ -7,6 +7,7 @@ import UserService from '../../services/user'
 import { updateUserInfo } from "../../state/actions/user";
 import { Box, Button, Flex, Text } from '@chakra-ui/core'
 
+
 export default function Profile() {
 
     const user = useSelector(state => state.user.user)

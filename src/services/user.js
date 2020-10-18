@@ -38,14 +38,39 @@ const UserService = {
             .catch(err => { console.error(err); })
     },
     addFriend: async(userId, email, callback) => {
-        var headers =  {
-            'Content-Type': 'application/json',
-        }
-        var body = { 
-            userid: userId,
-            email: email,
-        }
-        axios.post(host + '/user/friend', body, {headers: headers})
+        var data = qs.stringify({
+            userId: userId,
+            email: email
+        });
+
+        var config = {
+            method: 'POST',
+            url: host + '/user/friend',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+        axios(config)
+            .then(res => { 
+                callback(res.data) 
+            })
+            .catch(err => { console.error(err); })
+    },
+    getFriendRequests: async(userId, callback) => {
+        var data = qs.stringify({
+            userid: userId
+        })
+
+        var config = {
+            method: 'GET',
+            url: host + '/user/friend/request',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+        axios(config)
             .then(res => { 
                 callback(res.data) 
             })

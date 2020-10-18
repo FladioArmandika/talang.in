@@ -2,6 +2,7 @@ import { Box, Button, Flex, Input, Text } from '@chakra-ui/core'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserService } from '../../../services'
+import Cookies from 'universal-cookie'
 
 export default function AddFriend() {
 
@@ -10,7 +11,30 @@ export default function AddFriend() {
 
     const searchFriend = () => {
         UserService.getUserByEmail(emailFriend, (data) => {
-            setFriendFound(data)
+            setFriendFound({
+                ...data,
+                status: 'Add'
+            })
+        })
+    }
+
+    const addFriend = () => {
+
+        const cookies = new Cookies();
+        const userCookie = cookies.get('user');
+
+        const userId = userCookie._id;
+
+        UserService.addFriend(userId,emailFriend, (data) => {
+            alert('FRIEND ADDED')
+            setFriendFound({
+                ...data,
+                status: 'Sent'
+            })
+        })
+        setFriendFound({
+            ...friendFound,
+            status: 'Pending'
         })
     }
 
@@ -42,7 +66,10 @@ export default function AddFriend() {
                         ? <Text></Text>
                         : 
                         <Box>
-                            {friendFound.email}
+                            <Flex justifyContent="space-between">
+                                {friendFound.name}
+                                <Button onClick={() => addFriend()}>{friendFound.status}</Button>
+                            </Flex>
                         </Box>
                     }
                 </Box>

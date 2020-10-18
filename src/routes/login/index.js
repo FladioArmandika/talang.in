@@ -7,6 +7,8 @@ import { authLogin } from '../../state/actions/auth'
 import { Redirect, useHistory } from 'react-router-dom'
 import { AuthService } from '../../services'
 import { Box, Button, Flex, Heading } from '@chakra-ui/core'
+import Cookies from 'universal-cookie'
+
 
 export default function Login() {
     
@@ -20,7 +22,11 @@ export default function Login() {
                     var user = result.user;
                     var token = result.token;
                     dispatch(authLogin({user,token}))   
-
+                    
+                    const cookies = new Cookies();
+                    cookies.set('token', token);
+                    cookies.set('user', JSON.stringify(user));
+                    
 
                     history.push('/');
                 });

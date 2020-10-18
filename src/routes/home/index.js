@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import UserService from '../../services/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateUserInfo } from '../../state/actions/user'
 import { Box, Button, Flex, Text } from '@chakra-ui/core'
 import { Colors } from '../../components'
+import Cookies from 'universal-cookie'
 
 export default function Home() {
 
     const user = useSelector(state => state.auth.user)
+    const [friendRequest, setFriendRequest] = useState(null)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -51,6 +53,15 @@ export default function Home() {
                                     <Button>FRIEND LIST</Button>
                                 </NavLink>
                             </Box>
+                        </Box>
+
+                        {/* FRIEND REQUEST */}
+                        <Box>
+                            {
+                                user && user.friendrequests ?
+                                JSON.stringify(user)
+                                : <Box></Box>
+                            }
                         </Box>
                     </Box>
                 </Flex>
