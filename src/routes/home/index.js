@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import UserService from '../../service/user'
+import UserService from '../../services/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateUserInfo } from '../../state/actions/user'
 import { Box, Button, Flex, Text } from '@chakra-ui/core'

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { render } from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { UserService } from '../../service'
+import { UserService } from '../../services'
 import { updateUserInfo } from '../../state/actions/user'
 import SelectFriends from './SelectFriends'
 import DebtInfo from './DebtInfo'

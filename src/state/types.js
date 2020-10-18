@@ -1,6 +1,3 @@
-
-
-
 export const COUNT = {
     ADD_COUNT: 'ADD_COUNT',
     MINUS_COUNT: 'MINUS_COUNT',

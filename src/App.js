@@ -1,11 +1,11 @@
 import React, { useReducer, useEffect, Component } from 'react'
 import { BrowserRouter, Switch, Route, Redirect, useHistory } from "react-router-dom";
-import { Home, Profile, DebtNew, FriendList } from './routes';
+import { Home, Profile, DebtNew, FriendList, AddFriend } from './routes';
 import authReducer from './state/reducers/auth';
 import Login from './routes/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { authLogin } from './state/actions/auth';
-import { AuthService } from './service';
+import { AuthService } from './services';
 import { updateUserInfo } from './state/actions/user';
 
 
@@ -42,7 +42,8 @@ export default function App() {
         <Switch>
             { !auth.isAuthenticated && <Route path='/login' component={Login}/>}
             <PrivateRoute path='/profile'component={Profile}/>
-            <PrivateRoute path='/friends'component={FriendList}/>
+            <PrivateRoute exact path='/friends'component={FriendList}/>
+            <PrivateRoute path='/friends/add'component={AddFriend}/>
             <PrivateRoute path='/debt/create'component={DebtNew}/>
             <PrivateRoute path='/' component={Home}/>  
         </Switch>

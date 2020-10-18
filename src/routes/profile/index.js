@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { authLogout } from '../../state/actions/auth'
-import UserService from '../../service/user'
+import UserService from '../../services/user'
 import { updateUserInfo } from "../../state/actions/user";
 import { Box, Button, Flex, Text } from '@chakra-ui/core'
 

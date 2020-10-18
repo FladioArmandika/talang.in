@@ -5,7 +5,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { addCount } from '../../state/actions/count'
 import { authLogin } from '../../state/actions/auth'
 import { Redirect, useHistory } from 'react-router-dom'
-import { AuthService } from '../../service'
+import { AuthService } from '../../services'
 import { Box, Button, Flex, Heading } from '@chakra-ui/core'
 
 export default function Login() {
@@ -20,6 +20,7 @@ export default function Login() {
                     var user = result.user;
                     var token = result.token;
                     dispatch(authLogin({user,token}))   
+
 
                     history.push('/');
                 });

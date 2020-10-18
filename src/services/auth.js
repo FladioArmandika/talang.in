@@ -10,10 +10,10 @@ const AuthService = {
         var headers =  {
             'Content-Type': 'application/json',
         }
-        axios.post(host + '/api/auth/login',JSON.stringify({code}), {
+        axios.post(host + '/api/auth/login', JSON.stringify({code}), {
                 headers: headers
             })
-            .then(res => { callback(res.data) })
+            .then(res => { callback(res.data) })  
             .catch(err => { console.error(err); })
     },
     

@@ -4,12 +4,11 @@ const { USER } = require("../types");
 
 
 const user = (state=initialState, action) => {
-    
 
     switch (action.type) {
         case USER.USER_INFO_UPDATE: {
             return {
-                ...state,
+                // ...state,
                 user: {
                     id: action.payload._id,
                     email: action.payload.email,
