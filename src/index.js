@@ -6,6 +6,7 @@ import createAppStore from './state/store';
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 import { CSSReset, ThemeProvider } from '@chakra-ui/core';
+
 import theme from './theme';
 
 const store = createAppStore();

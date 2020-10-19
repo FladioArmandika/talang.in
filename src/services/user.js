@@ -5,13 +5,20 @@ const host = process.env.REACT_APP_HOST_SERVER + process.env.REACT_APP_HOST_API_
 
 const UserService = {
     getUserInfo: async(userId, callback) => {
-        var headers =  {
-            'Content-Type': 'application/json',
-        }
-        var query = qs.stringify({ userid: userId })
-        axios.get(host + '/user', query, {headers: headers})
+        var data = qs.stringify({
+            userid: userId
+        });
+        var config = {
+            method: 'POST',
+            url: host + '/user',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+        axios(config)
             .then(res => { 
-                callback(res.data[0]) 
+                callback(res.data) 
             })
             .catch( err => { console.error(err); } )
     },
@@ -29,8 +36,6 @@ const UserService = {
             data : data
         };
 
-        console.log(config); 
-
         axios(config)
             .then(res => { 
                 callback(res.data) 
@@ -39,7 +44,7 @@ const UserService = {
     },
     addFriend: async(userId, email, callback) => {
         var data = qs.stringify({
-            userId: userId,
+            userid: userId,
             email: email
         });
 

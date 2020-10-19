@@ -7,6 +7,8 @@ const user = (state=initialState, action) => {
 
     switch (action.type) {
         case USER.USER_INFO_UPDATE: {
+            console.log(USER.USER_INFO_UPDATE);
+            console.log(action.payload);
             return {
                 // ...state,
                 user: {

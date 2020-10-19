@@ -6,7 +6,7 @@ import { authLogout } from '../../state/actions/auth'
 import UserService from '../../services/user'
 import { updateUserInfo } from "../../state/actions/user";
 import { Box, Button, Flex, Text } from '@chakra-ui/core'
-
+import Cookies from 'universal-cookie'
 
 export default function Profile() {
 
@@ -14,9 +14,14 @@ export default function Profile() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (user) {
-            UserService.getUserInfo(user.id, (result) => {
+        const cookies = new Cookies();
+        const userCookie = cookies.get('user');
+        const userId = userCookie._id;
+
+        if(userId) {
+            UserService.getUserInfo(userId, (result) => {
                 dispatch(updateUserInfo(result))
+                
             })
         }
     }, [])

@@ -9,17 +9,21 @@ import Cookies from 'universal-cookie'
 
 export default function Home() {
 
-    const user = useSelector(state => state.auth.user)
-    const [friendRequest, setFriendRequest] = useState(null)
+    const user = useSelector(state => state.user.user);
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(user) {
-            UserService.getUserInfo(user.id, (result) => {
+        const cookies = new Cookies();
+        const userCookie = cookies.get('user');
+        const userId = userCookie._id;
+
+        if(userId) {
+            UserService.getUserInfo(userId, (result) => {
                 dispatch(updateUserInfo(result))
+                
             })
         }
-    }, [user])
+    }, [])
 
     return (
         <Box>   
@@ -58,9 +62,24 @@ export default function Home() {
                         {/* FRIEND REQUEST */}
                         <Box>
                             {
-                                user && user.friendrequests ?
-                                JSON.stringify(user)
-                                : <Box></Box>
+                                user ? 
+                                    user.friendrequests ?
+                                        user.friendrequests.map(friendRequest => {
+                                            return (
+                                                <Box>
+                                                    {friendRequest.from.email}<br/>
+                                                    {friendRequest.to.email}<br/>
+                                                    {friendRequest.status}<br/>
+                                                </Box>
+                                            )
+                                        })
+                                        // <Box>daddwad</Box>
+                                    : 
+                                    <Box>
+                                        gak ada
+                                        {JSON.stringify(user)}
+                                    </Box>
+                                : <Text>User belum ada</Text>
                             }
                         </Box>
                     </Box>

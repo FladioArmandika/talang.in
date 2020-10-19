@@ -25,7 +25,7 @@ export default function AddFriend() {
 
         const userId = userCookie._id;
 
-        UserService.addFriend(userId,emailFriend, (data) => {
+        UserService.addFriend(userId, emailFriend, (data) => {
             alert('FRIEND ADDED')
             setFriendFound({
                 ...data,
@@ -50,6 +50,7 @@ export default function AddFriend() {
                             <Text>ADD FRIEND</Text>
                         </Flex> 
                     </Box>
+                    ravansaoktaviano@gmail.com
                     <Box w="100%" paddingY={10}>
                         <Flex direction="row" justifyContent="space-between">
                             <Input 
