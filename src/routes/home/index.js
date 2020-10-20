@@ -20,7 +20,6 @@ export default function Home() {
         if(userId) {
             UserService.getUserInfo(userId, (result) => {
                 dispatch(updateUserInfo(result))
-                
             })
         }
     }, [])
@@ -73,7 +72,6 @@ export default function Home() {
                                                 </Box>
                                             )
                                         })
-                                        // <Box>daddwad</Box>
                                     : 
                                     <Box>
                                         gak ada

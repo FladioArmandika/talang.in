@@ -66,7 +66,6 @@ const UserService = {
         var data = qs.stringify({
             userid: userId
         })
-
         var config = {
             method: 'GET',
             url: host + '/user/friend/request',
