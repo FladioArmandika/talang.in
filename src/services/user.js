@@ -4,6 +4,7 @@ import qs from 'querystring'
 const host = process.env.REACT_APP_HOST_SERVER + process.env.REACT_APP_HOST_API_ENDPOINT
 
 const UserService = {
+    // GET USER INFO
     getUserInfo: async(userId, callback) => {
         var data = qs.stringify({
             userid: userId
@@ -22,6 +23,7 @@ const UserService = {
             })
             .catch( err => { console.error(err); } )
     },
+    // GET USER BY EMAIL
     getUserByEmail: async(email, callback) => {
         var data = qs.stringify({
             email: email
@@ -42,6 +44,7 @@ const UserService = {
             })
             .catch(err => { console.error(err); })
     },
+    // ADD FRIEND
     addFriend: async(userId, email, callback) => {
         var data = qs.stringify({
             userid: userId,
@@ -62,6 +65,7 @@ const UserService = {
             })
             .catch(err => { console.error(err); })
     },
+    // GET FRIEND REQUESTS
     getFriendRequests: async(userId, callback) => {
         var data = qs.stringify({
             userid: userId
