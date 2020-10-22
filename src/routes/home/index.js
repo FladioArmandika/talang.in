@@ -22,6 +22,7 @@ export default function Home() {
                 dispatch(updateUserInfo(result))
             })
         }
+        
     }, [])
 
     return (
@@ -59,18 +60,34 @@ export default function Home() {
                         </Box>
 
                         {/* FRIEND REQUEST */}
-                        <Box>
+
+                        <Box mt={5}>
+                            <Flex justifyContent="space-between" mb={5}>
+                                <Text fontWeight="bold">Friend Request</Text>
+                                <Text>show all</Text>
+                            </Flex>
                             {
                                 user ? 
                                     user.friendrequests ?
                                         user.friendrequests.map(friendRequest => {
-                                            return (
-                                                <Box>
-                                                    {friendRequest.from.email}<br/>
-                                                    {friendRequest.to.email}<br/>
-                                                    {friendRequest.status}<br/>
-                                                </Box>
-                                            )
+                                            if (friendRequest.to.email == user.email) {
+                                                return (
+                                                    <Box p={5} background="#F7FAFC">
+                                                        <Flex direction="row" justifyContent="space-between">
+                                                            {friendRequest.from.email}<br/>
+                                                            {friendRequest.status}<br/>
+                                                            <Flex>
+                                                                <Button>ACCEPT</Button>
+                                                                <Button>REJECT</Button>
+                                                            </Flex>
+                                                        </Flex>
+                                                    </Box>
+                                                )
+                                            } else {
+                                                return (
+                                                    (<Box></Box>)
+                                                )
+                                            }
                                         })
                                     : 
                                     <Box>

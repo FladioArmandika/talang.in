@@ -1,13 +1,25 @@
+import { Box, Button, Input } from '@chakra-ui/core'
 import React from 'react'
-import { Button } from '../../components'
 
-export default function DebtInfo({nextStep}) {
+export default function DebtInfo({nextStep, total, setTotal}) {
+
     return (
-        <div>
-            Debt Info
-            <Button onClick={() => nextStep()}>
-                Next
-            </Button>
-        </div>
+        <Box>
+            <Box w="100%" mt={50}>
+                <Box>
+                    Jumlah
+                    <Input
+                        type="Number"
+                        onChange={e => {
+                            setTotal(e.target.value)
+                        }}
+                        />
+                </Box>
+
+                <Button onClick={() => nextStep()} float="right" mt={5}>
+                    Next
+                </Button>
+            </Box>
+        </Box>
     )
 }

@@ -26,7 +26,6 @@ export default function Login() {
                     const cookies = new Cookies();
                     cookies.set('token', token);
                     cookies.set('user', JSON.stringify(user));
-                    
 
                     history.push('/');
                 });

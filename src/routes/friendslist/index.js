@@ -4,19 +4,24 @@ import { UserService } from '../../services'
 import { updateUserInfo } from '../../state/actions/user'
 import { NavLink, Redirect } from 'react-router-dom'
 import { Box, Button, Flex, Text } from '@chakra-ui/core'
-
+import Cookies from 'universal-cookie'
 
 export default function FriendList() {
 
-    const user = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    const user = useSelector(state => state.user.user)
+    const dispatch = useDispatch()  
 
     // const [addFriend, setaddFriend] = useState(false)
 
     useEffect(() => {
-        if(user) {
-            UserService.getUserInfo(user.id, (result) => {
+        const cookies = new Cookies();
+        const userCookie = cookies.get('user');
+        const userId = userCookie._id;
+
+        if(userId) {
+            UserService.getUserInfo(userId, (result) => {
                 dispatch(updateUserInfo(result))
+                
             })
         }
     }, [])

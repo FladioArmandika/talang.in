@@ -28,6 +28,8 @@ export default function Profile() {
 
     const logout = () => {
         dispatch(authLogout())
+        const cookies = new Cookies();
+        cookies.remove('user');
         return (
             <Redirect to='/login'/>
         )
