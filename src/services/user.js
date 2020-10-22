@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'querystring'
+import friendrequest from '../../../talangin-api/models/friendrequest';
 
 const host = process.env.REACT_APP_HOST_SERVER + process.env.REACT_APP_HOST_API_ENDPOINT
 
@@ -83,7 +84,45 @@ const UserService = {
                 callback(res.data) 
             })
             .catch(err => { console.error(err); })
-    }
+    },
+    acceptFriendRequest: async(friendRequestId,callback) => {
+        var data = qs.stringify({
+            requestId: friendRequestId,
+            status: 'accept'
+        })
+        var config = {
+            method: 'POST',
+            url: host + '/user/friend/request',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+        axios(config)
+            .then(res => { 
+                callback(res.data) 
+            })
+            .catch(err => { console.error(err); })
+    },
+    rejectFriendRequest: async(friendRequestId,callback) => {
+        var data = qs.stringify({
+            requestId: friendRequestId,
+            status: 'reject'
+        })
+        var config = {
+            method: 'POST',
+            url: host + '/user/friend/request',
+            headers: { 
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data : data
+        };
+        axios(config)
+            .then(res => { 
+                callback(res.data) 
+            })
+            .catch(err => { console.error(err); })
+    },
 }
 
 export default UserService;
